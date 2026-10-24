@@ -6,16 +6,17 @@ using namespace std;
 
 
 void GET(std::unordered_map<std::string,std::string>& db,std::string& key){
-    if(db.contains("key")){
-        std::cout<<db["key"]<<"\n";
+    auto it = db.find(key);
+    if(it != db.end()){
+        std::cout<<it->second<<"\n";
     }else{
         std::cout<<"Invalid Key!"<<"\n";
     }
 }
 
 void DEL(std::unordered_map<std::string,std::string>& db,std::string& key){
-    if(db.contains("key")){
-        db.erase("key");
+    if(db.contains(key)){
+        db.erase(key);
         std::cout<<"DEL done."<<"\n";
     }else{
         std::cout<<"Invalid Key!"<<"\n";
@@ -23,7 +24,7 @@ void DEL(std::unordered_map<std::string,std::string>& db,std::string& key){
 }
 
 void SET(std::unordered_map<std::string,std::string>& db,std::string& key,std::string& value){
-    db["key"] = value;
+    db[key] = value;
     std::cout<<"SET done."<<"\n";
 }
 
@@ -34,7 +35,7 @@ int main(int argc, char const *argv[])
     std::unordered_map<std::string,std::string> db;
 
     db["name"] = "Alice";
-    db["age"] = 20;
+    db["age"] = "20";
     db["language"] = "English";
 
     std::string line;
