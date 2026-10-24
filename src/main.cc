@@ -15,7 +15,8 @@ void GET(std::unordered_map<std::string,std::string>& db,std::string& key){
 }
 
 void DEL(std::unordered_map<std::string,std::string>& db,std::string& key){
-    if(db.contains(key)){
+    auto it = db.find(key);
+    if(it != db.end()){
         db.erase(key);
         std::cout<<"DEL done."<<"\n";
     }else{
