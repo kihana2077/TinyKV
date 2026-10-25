@@ -10,7 +10,7 @@ void GET(std::unordered_map<std::string,std::string>& db,std::string& key){
     if(it != db.end()){
         std::cout<<it->second<<"\n";
     }else{
-        std::cout<<"Invalid Key!"<<"\n";
+        std::cout<<"None."<<"\n";
     }
 }
 
@@ -40,12 +40,12 @@ int main(int argc, char const *argv[])
     db["language"] = "English";
 
     std::string line;
-    std::string command;
-    std::string key;
-    std::string value;
-
-
     while(getline(std::cin,line)){
+
+        std::string command;
+        std::string key;
+        std::string value;
+
         if(line == "exit") 
             break;
         std::istringstream iss(line);
@@ -56,10 +56,18 @@ int main(int argc, char const *argv[])
                 std::cout<<"Parameter key is vacant!"<<"\n";
                 continue;
             }
+            if(iss >> value){
+                std::cout<<"GET with an unexpected parameter!"<<"\n";
+                continue;
+            }
             GET(db,key);
         }else if(command == "DEL"){
             if(!(iss >> key)){
                 std::cout<<"Parameter key is vacant!"<<"\n";
+                continue;
+            }
+            if(iss >> value){
+                std::cout<<"DEL with an unexpected parameter!"<<"\n";
                 continue;
             }
             DEL(db,key);
