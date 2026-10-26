@@ -10,4 +10,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(TinyKV src/main.cc)
+add_executable(TinyKV 
+    src/main.cc
+    src/store.cc)
+
+target_include_directories(. PRIVATE include)
