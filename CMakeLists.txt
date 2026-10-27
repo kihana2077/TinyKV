@@ -12,6 +12,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(TinyKV 
     src/main.cc
-    src/store.cc)
+    src/store.cc
+    src/aof.cc)
 
-target_include_directories(. PRIVATE include)
+target_include_directories(TinyKV PRIVATE include)

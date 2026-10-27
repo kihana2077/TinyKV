@@ -2,7 +2,7 @@
 #include<string>
 #include<sstream>
 #include"store.hpp"
-
+#include"aof.hpp"
 
 // void GET(std::unordered_map<std::string,std::string>& db,std::string& key){
 //     auto it = db.find(key);
@@ -33,7 +33,7 @@ int main(void)
 {
     std::cout<<"KV is running"<<"\n";
     Store store;
-
+    Aof aof("./data/journal.txt");
     std::string line;
     while(getline(std::cin,line)){
 
@@ -43,44 +43,51 @@ int main(void)
 
         if(line == "exit") 
             break;
+        bool ap = aof.append(line);
+        if(ap){
+            std::cout<<"journal append."<<"\n";
+        }else{
+            std::cout<<"Unexpected error."<<"\n";
+        }
+
         std::istringstream iss(line);
         
         if(!(iss >> command)) continue;
         if(command == "GET"){
             if(!(iss >> key)){
-                std::cout<<"Parameter key is vacant!"<<"\n";
+                std::cout<<">>Parameter key is vacant!"<<"\n";
                 continue;
             }
             if(iss >> value){
-                std::cout<<"GET with an unexpected parameter!"<<"\n";
+                std::cout<<">>GET with an unexpected parameter!"<<"\n";
                 continue;
             }
             auto result = store.get(key);
             std::cout<<*result<<"\n";
         }else if(command == "DEL"){
             if(!(iss >> key)){
-                std::cout<<"Parameter key is vacant!"<<"\n";
+                std::cout<<">>Parameter key is vacant!"<<"\n";
                 continue;
             }
             if(iss >> value){
-                std::cout<<"DEL with an unexpected parameter!"<<"\n";
+                std::cout<<">>DEL with an unexpected parameter!"<<"\n";
                 continue;
             }
             store.del(key);
             std::cout<<"del done."<<"\n";
         }else if(command == "SET"){
             if(!(iss >> key)){
-                std::cout<<"Parameter key is vacant!"<<"\n";
+                std::cout<<">>Parameter key is vacant!"<<"\n";
                 continue;
             }
             if(!(iss >> value)){
-                std::cout<<"Parameter value is vacant!"<<"\n";
+                std::cout<<">>Parameter value is vacant!"<<"\n";
                 continue;
             }
             store.set(key,value);
             std::cout<<"set done."<<"\n";
         }else{
-            std::cout<<"Invalid command!"<<"\n";
+            std::cout<<">>Invalid command!"<<"\n";
         }
     }
 
