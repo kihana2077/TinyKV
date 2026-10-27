@@ -17,11 +17,9 @@ void Store::del(const std::string& key){
         std::cout<<"No such key exist!"<<"\n";
     }else{
         data.erase(key);
-        std::cout<<"del done."<<"\n";
     }
 }
 
 void Store::set(const std::string& key,const std::string& value){
     data[key] = value;
-    std::cout<<"set done."<<"\n";
 }
